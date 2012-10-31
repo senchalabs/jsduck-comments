@@ -14,5 +14,8 @@
     },
     "devDependencies": {
         "jasmine-node": "~1.0"
+    },
+    "scripts": {
+        "test": "make test"
     }
 }
