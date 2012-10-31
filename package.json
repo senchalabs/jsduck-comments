@@ -1,5 +1,5 @@
 {
-    "name": "jsduck_comments",
+    "name": "jsduck-comments",
     "version": "2.0.0",
     "description": "Commenting backend for JSDuck Documentation",
     "author": "Rene Saarsoo <nene@triin.net>",
