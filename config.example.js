@@ -16,11 +16,13 @@ module.exports = {
 
     // Use local database also for authentication
     auth: {
-        type: "local"
+        type: "local",
+        register: "http://example.com/register"
     },
     // ALTERNATIVE: Authenticate using Sencha Forum database
     // auth: {
     //     type: "sencha_forum",
+    //     register: "http://www.sencha.com/forum/register.php",
     //     db: {
     //         user: "",
     //         password: "",

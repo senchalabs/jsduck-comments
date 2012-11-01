@@ -102,6 +102,11 @@ app.post('/auth/logout', Auth.doLogout, function(req, res) {
     res.json({ success: true });
 });
 
+// Redirects to the registration page.
+app.get('/auth/register', function(req, res) {
+    res.redirect(config.auth.register);
+});
+
 
 // Requests for Comments
 
