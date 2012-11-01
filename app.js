@@ -35,9 +35,9 @@ app.configure(function() {
         secret: config.sessionSecret,
         key: 'sencha_docs',
         store: new MySQLStore(
-            config.mysql.database,
-            config.mysql.user,
-            config.mysql.password,
+            config.db.database,
+            config.db.user,
+            config.db.password,
             {logging: false}
         )
     }));

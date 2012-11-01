@@ -4,7 +4,7 @@ module.exports = {
     port: 3000,
 
     // local comments database
-    mysql: {
+    db: {
         user: "",
         password: "",
         database: "comments",
