@@ -7,11 +7,23 @@ DROP TABLE IF EXISTS votes;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS targets;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_auths;
+
+-- local table for authentication data.
+-- used when comments server configured with auth type=local.
+CREATE TABLE user_auths (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    moderator BOOLEAN NOT NULL DEFAULT 0
+) ENGINE = InnoDB, CHARACTER SET = utf8;
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    external_id INT NOT NULL UNIQUE, -- (link to Sencha Forum database)
+    external_id INT NOT NULL UNIQUE, -- link to user_auths or to Sencha Forum database
     email VARCHAR(255) NOT NULL,
     moderator BOOLEAN NOT NULL DEFAULT 0
 ) ENGINE = InnoDB, CHARACTER SET = utf8;

@@ -11,13 +11,20 @@ module.exports = {
         host: "localhost"
     },
 
-    // Sencha Forum database
-    forumDb: {
-        user: '',
-        password: '',
-        host: '',
-        database: ''
+    // Use local database also for authentication
+    auth: {
+        type: "local"
     },
+    // ALTERNATIVE: Authenticate using Sencha Forum database
+    // auth: {
+    //     type: "sencha_forum",
+    //     db: {
+    //         user: "",
+    //         password: "",
+    //         host: "",
+    //         database: ""
+    //     }
+    // },
 
     // The database to run jasmine unit tests in
     testDb: {
