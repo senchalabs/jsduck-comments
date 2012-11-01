@@ -1,6 +1,9 @@
 
 module.exports = {
-    sessionSecret: 'blahblahblah',
+    // Used by express.cookieParser
+    // Just make up some random string. SHA1 hash works well.
+    sessionSecret: '891e0b202e6df9236e464bfff1cf1e1fad7b82fb',
+    // The port at which the server runs
     port: 3000,
 
     // local comments database
@@ -35,6 +38,7 @@ module.exports = {
     },
 
     // Config for nodemailer
+    // See https://github.com/andris9/Nodemailer
     email: {
         from: "Sencha Documentation <no-reply@sencha.com>",
         config: {
