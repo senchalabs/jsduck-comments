@@ -34,8 +34,5 @@ module.exports = {
             host: 'localhost',
             port: 25
         }
-    },
-
-    // old MongoDB database
-    mongoDb: 'mongodb://localhost:27017/comments'
+    }
 };
