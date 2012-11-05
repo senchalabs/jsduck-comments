@@ -120,6 +120,28 @@ describe("Comments", function() {
         });
     });
 
+    it("#find returns nr of replies for each comment", function(done) {
+        comments.find({type: "class", cls: "Ext", member: ""}, function(err, rows) {
+            expect(rows[0].reply_count).toEqual(2);
+            expect(rows[1].reply_count).toEqual(0);
+            done();
+        });
+    });
+
+    it("#findChildren returns array of replies to a comment", function(done) {
+        comments.findChildren(1, function(err, rows) {
+            expect(rows.length).toEqual(2);
+            done();
+        });
+    });
+
+    it("#findChildren returns empty array when comment has no replies", function(done) {
+        comments.findChildren(2, function(err, rows) {
+            expect(rows).toEqual([]);
+            done();
+        });
+    });
+
     it("#findRecent returns n recent comments", function(done) {
         comments.findRecent({limit: 10, offset: 0}, function(err, rows) {
             expect(rows.length).toEqual(10);

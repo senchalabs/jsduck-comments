@@ -166,9 +166,16 @@ app.get('/auth/:sdk/:version/comments', Auth.hasStartKey, function(req, res) {
     });
 });
 
+// Returns a list of comments for a particular target (eg class, guide, video)
+app.get('/auth/:sdk/:version/replies', function(req, res) {
+    new Request(req).getReplies(req.query.parentId, function(comments) {
+        res.json(comments);
+    });
+});
+
 // Adds new comment
 app.post('/auth/:sdk/:version/comments', Auth.isLoggedIn, function(req, res) {
-    new Request(req).addComment(req.body.target, req.body.comment, req.body.url, function(comment) {
+    new Request(req).addComment(req.body.target, req.body.parentId, req.body.comment, req.body.url, function(comment) {
         res.json({ id: comment._id, comment: comment, success: true });
     });
 });
