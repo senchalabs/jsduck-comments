@@ -1,11 +1,14 @@
 JSDuck Comments Server
 ======================
 
-NodeJS server for [JSDuck][] comments system.
+NodeJS server for [JSDuck][] comments system on top of MySQL database.
 
-MySQL database is used for storage, users data is retrieved from
-Sencha Forum database - so for now this system is usable inside Sencha
-only.
+**NOTE:** The authentication system is currently targeted to work with
+[Sencha Forum][] users database.  If you're not from Sencha, then this
+is obviously not an option.  For that case there also exists an
+alternative implementation which uses a local users table, but as of
+now the implementation doesn't cover registration, only the
+authentication part.
 
 [JSDuck]: https://github.com/senchalabs/jsduck
 [Sencha Forum]: http://www.sencha.com/forum/
@@ -25,8 +28,7 @@ tables:
 
     $ mysql my_comments_db_name < sql/schema.sql
 
-Create config file with user & pass for connecting to MySQL database
-and Sencha Forum database:
+Create config file with user & pass for connecting to MySQL database:
 
     $ cp config.example.js config.js
     $ vi config.js
@@ -64,7 +66,7 @@ For example:
     $ jsduck --comments-url http://localhost:3000/auth --comments-domain extjs/4 ...
 
 Now open the generated docs app in browser and try to log in with your
-Sencha Forum ID and password.
+username and password.
 
 
 Development
