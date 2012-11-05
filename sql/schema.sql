@@ -42,6 +42,7 @@ CREATE TABLE comments (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     target_id INT NOT NULL,
+    parent_id INT NULL,
     content TEXT NOT NULL,
     content_html TEXT NOT NULL,
     vote INT NOT NULL DEFAULT 0,
@@ -49,7 +50,8 @@ CREATE TABLE comments (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted BOOLEAN NOT NULL DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (target_id) REFERENCES targets (id) ON DELETE CASCADE
+    FOREIGN KEY (target_id) REFERENCES targets (id) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES comments (id) ON DELETE CASCADE
 ) ENGINE = InnoDB, CHARACTER SET = utf8;
 
 CREATE TABLE votes (
