@@ -149,6 +149,14 @@ describe("Comments", function() {
         });
     });
 
+    it("#findRecent also returns nr of replies for each comment", function(done) {
+        comments.findRecent({targetId: 1}, function(err, rows) {
+            expect(rows[3].reply_count).toEqual(0);
+            expect(rows[4].reply_count).toEqual(2);
+            done();
+        });
+    });
+
     it("#findRecent without offset option defaults to offset:0", function(done) {
         comments.findRecent({limit: 10}, function(err, rows) {
             expect(rows.length).toEqual(10);
