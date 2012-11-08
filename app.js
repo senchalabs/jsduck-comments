@@ -247,6 +247,15 @@ app.post('/auth/:sdk/:version/comments/:commentId/read', Auth.isLoggedIn, functi
     });
 });
 
+// Changes a comment to be a child of another,
+// or to be at the top level (when parentId is undefined).
+app.post('/auth/:sdk/:version/comments/:commentId/set_parent', Auth.isLoggedIn, Auth.isModerator, function(req, res) {
+    new Request(req).setParent(req.params.commentId, req.body.parentId, function() {
+        res.json({ success: true });
+    });
+});
+
+
 // Returns all subscriptions for logged in user
 app.get('/auth/:sdk/:version/subscriptions', function(req, res) {
     new Request(req).getSubscriptions(function(subs) {

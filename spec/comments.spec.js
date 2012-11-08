@@ -473,4 +473,40 @@ describe("Comments", function() {
             });
         });
     });
+
+    it("#setParent makes comment a child of the parent", function(done) {
+        comments.setParent({id: 2, parent_id: 1}, function(err) {
+            comments.findChildren(1, function(err, replies) {
+                expect(replies.length).toEqual(3);
+                done();
+            });
+        });
+    });
+
+    it("#setParent without parent_id removes a child from the parent", function(done) {
+        comments.setParent({id: 2}, function(err) {
+            comments.findChildren(1, function(err, replies) {
+                expect(replies.length).toEqual(2);
+                done();
+            });
+        });
+    });
+
+    it("#setParent to a comment with children moves all childs to the new parent", function(done) {
+        comments.setParent({id: 1, parent_id: 2}, function(err) {
+            comments.findChildren(2, function(err, replies) {
+                expect(replies.length).toEqual(3);
+                done();
+            });
+        });
+    });
+
+    it("#setParent to parent which is in itself a child, moves the comment to the parent of that child", function(done) {
+        comments.setParent({id: 3, parent_id: 1}, function(err) {
+            comments.findChildren(2, function(err, replies) {
+                expect(replies.length).toEqual(4);
+                done();
+            });
+        });
+    });
 });
