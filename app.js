@@ -60,22 +60,20 @@ app.configure(function() {
 
 // Authentication
 
-// Old version for backwards compat.
 app.get('/auth/session', function(req, res) {
     new Request(req).getUser(function(user) {
         if (user) {
-            res.json({
-                userName: user.username,
-                mod: user.moderator
-            });
+            var json = ApiAdapter.userToJson(user);
+            json.sessionID = req.sessionID;
+            res.json(json);
         }
         else {
-            res.json(false);
+            res.json({sessionID: req.sessionID});
         }
     });
 });
 
-// New version.
+// Old URL that can be deleted after this release.
 app.get('/auth/session_new', function(req, res) {
     new Request(req).getUser(function(user) {
         if (user) {
