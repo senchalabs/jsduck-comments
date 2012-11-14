@@ -6,7 +6,7 @@
     "dependencies": {
         "mysql": "2.0.0-alpha3",
         "express": "3.0.0rc3",
-        "connect-mysql-session": "git://github.com/jimmybergman/connect-mysql-session.git",
+        "connect-mysql-session": "~0.1",
         "marked": "~0.2",
         "sanitizer": "~0.0",
         "nodemailer": "~0.3",
