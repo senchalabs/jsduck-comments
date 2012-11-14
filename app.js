@@ -61,7 +61,7 @@ app.configure(function() {
 // Authentication
 
 app.get('/auth/session', function(req, res) {
-    new Request(req).getUser(function(user) {
+    new Request(req).getUser(function(err, user) {
         if (user) {
             var json = ApiAdapter.userToJson(user);
             json.sessionID = req.sessionID;
@@ -75,7 +75,7 @@ app.get('/auth/session', function(req, res) {
 
 // Old URL that can be deleted after this release.
 app.get('/auth/session_new', function(req, res) {
-    new Request(req).getUser(function(user) {
+    new Request(req).getUser(function(err, user) {
         if (user) {
             var json = ApiAdapter.userToJson(user);
             json.sessionID = req.sessionID;
@@ -88,7 +88,7 @@ app.get('/auth/session_new', function(req, res) {
 });
 
 app.post('/auth/login', Auth.attemptLogin, function(req, res) {
-    new Request(req).getUser(function(user) {
+    new Request(req).getUser(function(err, user) {
         var json = ApiAdapter.userToJson(user);
         json.sessionID = req.sessionID;
         json.success = true;
@@ -120,28 +120,28 @@ app.get('/auth/:sdk/:version/comments_recent', function(req, res) {
         targetId: req.query.targetId,
         tagname: req.query.tagname
     };
-    new Request(req).getRecentComments(query, function(comments) {
+    new Request(req).getRecentComments(query, function(err, comments) {
         res.json(comments);
     });
 });
 
 // Returns top users (with most upvotes or with most comments).
 app.get('/auth/:sdk/:version/users', function(req, res) {
-    new Request(req).getTopUsers(req.query.sortBy, function(users) {
+    new Request(req).getTopUsers(req.query.sortBy, function(err, users) {
         res.json({ success: true, data: users });
     });
 });
 
 // Returns the most commented targets.
 app.get('/auth/:sdk/:version/targets', function(req, res) {
-    new Request(req).getTopTargets(function(targets) {
+    new Request(req).getTopTargets(function(err, targets) {
         res.json({ success: true, data: targets });
     });
 });
 
 // Returns the most used tags.
 app.get('/auth/:sdk/:version/tags', function(req, res) {
-    new Request(req).getTopTags(function(tags) {
+    new Request(req).getTopTags(function(err, tags) {
         res.send({ success: true, data: tags });
     });
 });
@@ -150,8 +150,8 @@ app.get('/auth/:sdk/:version/tags', function(req, res) {
 // and when user is logged in, all his subscriptions.
 app.get('/auth/:sdk/:version/comments_meta', function(req, res) {
     var r = new Request(req);
-    r.getCommentCountsPerTarget(function(counts) {
-        r.getSubscriptions(function(subs) {
+    r.getCommentCountsPerTarget(function(err, counts) {
+        r.getSubscriptions(function(err, subs) {
             res.json({ comments: counts, subscriptions: subs });
         });
     });
@@ -159,28 +159,28 @@ app.get('/auth/:sdk/:version/comments_meta', function(req, res) {
 
 // Returns a list of comments for a particular target (eg class, guide, video)
 app.get('/auth/:sdk/:version/comments', Auth.hasStartKey, function(req, res) {
-    new Request(req).getComments(req.query.startkey, function(comments) {
+    new Request(req).getComments(req.query.startkey, function(err, comments) {
         res.json(comments);
     });
 });
 
 // Returns a list of comments for a particular target (eg class, guide, video)
 app.get('/auth/:sdk/:version/replies', function(req, res) {
-    new Request(req).getReplies(req.query.parentId, function(comments) {
+    new Request(req).getReplies(req.query.parentId, function(err, comments) {
         res.json(comments);
     });
 });
 
 // Adds new comment
 app.post('/auth/:sdk/:version/comments', Auth.isLoggedIn, function(req, res) {
-    new Request(req).addComment(req.body.target, req.body.parentId, req.body.comment, req.body.url, function(comment) {
+    new Request(req).addComment(req.body.target, req.body.parentId, req.body.comment, req.body.url, function(err, comment) {
         res.json({ id: comment._id, comment: comment, success: true });
     });
 });
 
 // Returns plain markdown content of individual comment (used when editing a comment)
 app.get('/auth/:sdk/:version/comments/:commentId', function(req, res) {
-    new Request(req).getComment(req.params.commentId, function(comment) {
+    new Request(req).getComment(req.params.commentId, function(err, comment) {
         res.json({ success: true, content: comment.content });
     });
 });
@@ -189,7 +189,7 @@ app.get('/auth/:sdk/:version/comments/:commentId', function(req, res) {
 app.post('/auth/:sdk/:version/comments/:commentId', Auth.isLoggedIn, function(req, res) {
     if (req.body.vote) {
         Auth.canVote(req, res, function() {
-            new Request(req).vote(req.params.commentId, req.body.vote, function(direction, total) {
+            new Request(req).vote(req.params.commentId, req.body.vote, function(err, direction, total) {
                 res.json({
                     success: true,
                     direction: direction,
@@ -200,7 +200,7 @@ app.post('/auth/:sdk/:version/comments/:commentId', Auth.isLoggedIn, function(re
     }
     else {
         Auth.canModify(req, res, function() {
-            new Request(req).updateComment(req.params.commentId, req.body.content, function(comment) {
+            new Request(req).updateComment(req.params.commentId, req.body.content, function(err, comment) {
                 res.json({ success: true, content: comment.contentHtml });
             });
         });
@@ -209,7 +209,7 @@ app.post('/auth/:sdk/:version/comments/:commentId', Auth.isLoggedIn, function(re
 
 // Deletes a comment
 app.post('/auth/:sdk/:version/comments/:commentId/delete', Auth.isLoggedIn, Auth.canModify, function(req, res) {
-    new Request(req).setDeleted(req.params.commentId, true, function() {
+    new Request(req).setDeleted(req.params.commentId, true, function(err) {
         res.send({ success: true });
     });
 });
@@ -217,8 +217,8 @@ app.post('/auth/:sdk/:version/comments/:commentId/delete', Auth.isLoggedIn, Auth
 // Restores a deleted comment
 app.post('/auth/:sdk/:version/comments/:commentId/undo_delete', Auth.isLoggedIn, Auth.canModify, function(req, res) {
     var r = new Request(req);
-    r.setDeleted(req.params.commentId, false, function() {
-        r.getComment(req.params.commentId, function(comment) {
+    r.setDeleted(req.params.commentId, false, function(err) {
+        r.getComment(req.params.commentId, function(err, comment) {
             res.send({ success: true, comment: comment });
         });
     });
@@ -226,21 +226,21 @@ app.post('/auth/:sdk/:version/comments/:commentId/undo_delete', Auth.isLoggedIn,
 
 // Tags a comment
 app.post('/auth/:sdk/:version/comments/:commentId/add_tag', Auth.isLoggedIn, Auth.isModerator, function(req, res) {
-    new Request(req).addTag(req.params.commentId, req.body.tagname, function() {
+    new Request(req).addTag(req.params.commentId, req.body.tagname, function(err) {
         res.send({ success: true });
     });
 });
 
 // Removes tag from a comment
 app.post('/auth/:sdk/:version/comments/:commentId/remove_tag', Auth.isLoggedIn, Auth.isModerator, function(req, res) {
-    new Request(req).removeTag(req.params.commentId, req.body.tagname, function() {
+    new Request(req).removeTag(req.params.commentId, req.body.tagname, function(err) {
         res.send({ success: true });
     });
 });
 
 // Marks a comment 'read'
 app.post('/auth/:sdk/:version/comments/:commentId/read', Auth.isLoggedIn, function(req, res) {
-    new Request(req).markRead(req.params.commentId, function() {
+    new Request(req).markRead(req.params.commentId, function(err) {
         res.send({ success: true });
     });
 });
@@ -248,7 +248,7 @@ app.post('/auth/:sdk/:version/comments/:commentId/read', Auth.isLoggedIn, functi
 // Changes a comment to be a child of another,
 // or to be at the top level (when parentId is undefined).
 app.post('/auth/:sdk/:version/comments/:commentId/set_parent', Auth.isLoggedIn, Auth.isModerator, function(req, res) {
-    new Request(req).setParent(req.params.commentId, req.body.parentId, function() {
+    new Request(req).setParent(req.params.commentId, req.body.parentId, function(err) {
         res.json({ success: true });
     });
 });
@@ -256,14 +256,14 @@ app.post('/auth/:sdk/:version/comments/:commentId/set_parent', Auth.isLoggedIn, 
 
 // Returns all subscriptions for logged in user
 app.get('/auth/:sdk/:version/subscriptions', function(req, res) {
-    new Request(req).getSubscriptions(function(subs) {
+    new Request(req).getSubscriptions(function(err, subs) {
         res.json({ subscriptions: subs });
     });
 });
 
 // Subscibe / unsubscribe to a comment thread
 app.post('/auth/:sdk/:version/subscribe', Auth.isLoggedIn, function(req, res) {
-    new Request(req).changeSubscription(req.body.target, req.body.subscribed === 'true', function() {
+    new Request(req).changeSubscription(req.body.target, req.body.subscribed === 'true', function(err) {
         res.send({ success: true });
     });
 });
