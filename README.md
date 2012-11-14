@@ -41,12 +41,12 @@ Run the `app.js` script to start the server:
 
     $ node app.js
 
-Preferably though, use [always][] to run it, so in case it happens to
-crash it'll be restarted automatically:
+Preferably though, use [forever][] (or something similar) to run it,
+so in case it happens to crash it'll be restarted automatically:
 
-    $ always app.js
+    $ forever -e errors.log --watch app.js
 
-[always]: https://github.com/edwardhotchkiss/always
+[forever]: https://github.com/nodejitsu/forever
 
 Now the server is running, but we also need a client side, which of
 course is the docs app that JSDuck generates.  But we need to tell
