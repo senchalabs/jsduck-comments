@@ -99,7 +99,7 @@ INSERT INTO comments SET `id` = 31, `user_id` = 6, `target_id` = 17, `content` =
 
 -- replies to the first comment
 INSERT INTO comments SET `id` = 32, `user_id` = 1, `target_id` = 1, parent_id = 1, `content` = 'Answer please.', `created_at` = '2012-05-20 00:00:00';
-INSERT INTO comments SET `id` = 33, `user_id` = 2, `target_id` = 1, parent_id = 1, `content` = 'Me too!', `created_at` = '2012-05-20 00:00:00';
+INSERT INTO comments SET `id` = 33, `user_id` = 2, `target_id` = 1, parent_id = 1, `content` = 'Me too!', `created_at` = '2012-05-21 00:00:00';
 
 
 -- votes

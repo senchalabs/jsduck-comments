@@ -83,6 +83,22 @@ describe("Subscriptions", function() {
         });
     });
 
+    it("#findPreviousAuthorInThread returns array of one user when previous reply found", function(done) {
+        subscriptions.findPreviousAuthorInThread(1, 1, function(err, users) {
+            expect(users.length).toEqual(1);
+            expect(users[0].username).toEqual("renku");
+            done();
+        });
+    });
+
+    it("#findPreviousAuthorInThread returns array of one user when previous comment found", function(done) {
+        subscriptions.findPreviousAuthorInThread(1, undefined, function(err, users) {
+            expect(users.length).toEqual(1);
+            expect(users[0].username).toEqual("renku");
+            done();
+        });
+    });
+
     it("#add adds new subscription", function(done) {
         subscriptions.add({user_id: 1, target: {type: "guide", cls: "testing", member: ""}}, function(err, id) {
             subscriptions.findTargetsByUser(1, function(err, subs) {
