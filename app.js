@@ -73,20 +73,6 @@ app.get('/auth/session', function(req, res) {
     });
 });
 
-// Old URL that can be deleted after this release.
-app.get('/auth/session_new', function(req, res) {
-    new Request(req).getUser(function(err, user) {
-        if (user) {
-            var json = ApiAdapter.userToJson(user);
-            json.sessionID = req.sessionID;
-            res.json(json);
-        }
-        else {
-            res.json({sessionID: req.sessionID});
-        }
-    });
-});
-
 app.post('/auth/login', Auth.attemptLogin, function(req, res) {
     new Request(req).getUser(function(err, user) {
         var json = ApiAdapter.userToJson(user);
