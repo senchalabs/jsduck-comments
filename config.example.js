@@ -47,5 +47,8 @@ module.exports = {
             host: 'localhost',
             port: 25
         }
+        // An address where to send all e-mails about new comments.
+        // mailinglists: "comments@example.com"
     }
+
 };
