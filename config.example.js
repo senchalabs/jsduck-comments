@@ -42,7 +42,7 @@ module.exports = {
     // Config for nodemailer
     // See https://github.com/andris9/Nodemailer
     email: {
-        from: "Sencha Documentation <no-reply@sencha.com>",
+        from: "no-reply@sencha.com",
         config: {
             host: 'localhost',
             port: 25
