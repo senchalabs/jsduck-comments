@@ -39,10 +39,10 @@ module.exports = {
         host: "localhost"
     },
 
-    // Config for nodemailer
-    // See https://github.com/andris9/Nodemailer
     email: {
-        from: "no-reply@sencha.com",
+        domain: "docs.sencha.com",
+        // Config for nodemailer
+        // See https://github.com/andris9/Nodemailer
         config: {
             host: 'localhost',
             port: 25
