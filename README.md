@@ -68,6 +68,13 @@ For example:
 Now open the generated docs app in browser and try to log in with your
 username and password.
 
+Run on Heroku
+-------------
+To run on Heroku, you have two options:
+1. Use a config.js (which is normally gitignored; you will need to include it and push to heroku)
+2. Or build a config.js (locally ignored by git), flatten it using 'node flattenconfig.js ./config.js | sh 'to set the params at Heroku.
+
+App knows to pick up params from Heroku ENV settings first and then from config.js if heroku env not available. If you have heroku toolset installed, you can run this locally via foreman start as well.
 
 Development
 -----------
