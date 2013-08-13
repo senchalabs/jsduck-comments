@@ -1,6 +1,6 @@
 var express = require('express');
 var MySQLStore = require('connect-mysql-session')(express);
-var config = require('./config.js');
+var config = require('./lib/configwrapper.js');
 var Request = require('./lib/request');
 var Auth = require('./lib/auth');
 var ApiAdapter = require('./lib/api_adapter');
