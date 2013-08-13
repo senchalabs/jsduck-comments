@@ -1,3 +1,4 @@
 node_modules
 errors.log
 config.js
+npm-debug.log
