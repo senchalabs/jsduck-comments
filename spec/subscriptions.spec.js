@@ -2,7 +2,7 @@ describe("Subscriptions", function() {
     var mysql = require("mysql");
     var Subscriptions = require("../lib/subscriptions");
     var DbFacade = require('../lib/db_facade');
-    var config = require('../config');
+    var config = require('../lib/configwrapper'); 
     var connection;
     var subscriptions;
 

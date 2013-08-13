@@ -2,7 +2,7 @@ describe("Comments", function() {
     var mysql = require("mysql");
     var Comments = require("../lib/comments");
     var DbFacade = require('../lib/db_facade');
-    var config = require('../config');
+    var config = require('../lib/configwrapper');
     var connection;
     var comments;
 

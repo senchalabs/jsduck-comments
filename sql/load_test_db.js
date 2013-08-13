@@ -1,4 +1,4 @@
-var config = require("../config.js");
+var config = require('../lib/configwrapper');
 var exec = require('child_process').exec;
 
 // Load database connection config
