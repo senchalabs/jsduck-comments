@@ -252,7 +252,7 @@ app.get('/serverinfo', function(request, response) {
     response.send({success: true, ts: (new Date).getTime() });
 });
 
-var portnum=process.env.port || config.port;
+var portnum=process.env.PORT || config.port;
 app.listen(portnum, function() {
   console.log("Docs app Listening on port " + portnum);
 });
