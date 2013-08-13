@@ -1,4 +1,6 @@
-
+//To use this config on Heroku, remember to setup config.js then run flattenconfig.js to setup Heroku 
+//env params based on this config file. e.g "node flattenconfig.js ./config.js | sh " will push flat obj from
+//config.js keys into heroku as config paramaters. This way your config.js can be git excluded.
 module.exports = {
     // Used by express.cookieParser
     // Just make up some random string. SHA1 hash works well.
