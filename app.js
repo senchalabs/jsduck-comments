@@ -1,6 +1,6 @@
 var express = require('express');
 var MySQLStore = require('connect-mysql-session')(express);
-var config = require('./config');
+var config = require('./config.js');
 var Request = require('./lib/request');
 var Auth = require('./lib/auth');
 var ApiAdapter = require('./lib/api_adapter');
@@ -29,17 +29,11 @@ app.configure(function() {
         }
         next();
     });
-
-    // Use MongoDB for session storage
+    // Use MySQL for session storage
     app.use(express.session({
         secret: config.sessionSecret,
         key: 'sencha_docs',
-        store: new MySQLStore(
-            config.db.database,
-            config.db.user,
-            config.db.password,
-            {logging: false}
-        )
+        store: new MySQLStore(config.db.database,config.db.user,config.db.password,{host: config.db.host,logging: false})
     }));
 
     app.use(function(req, res, next) {
@@ -254,5 +248,11 @@ app.post('/auth/:sdk/:version/subscribe', Auth.isLoggedIn, function(req, res) {
     });
 });
 
-app.listen(config.port);
-console.log("Server started at port "+config.port+"...");
+app.get('/serverinfo', function(request, response) {
+    response.send({success: true, ts: (new Date).getTime() });
+});
+
+var portnum=process.env.port || config.port;
+app.listen(portnum, function() {
+  console.log("Docs app Listening on port " + portnum);
+});
