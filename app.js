@@ -49,7 +49,7 @@ app.configure(function() {
 
     app.enable('jsonp callback');
 
-    app.use(express.logger('dev'));
+    app.use(express.logger());
 });
 
 // Authentication
