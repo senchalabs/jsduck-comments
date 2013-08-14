@@ -1,4 +1,4 @@
 node_modules
 *.log
+nohup.out
 config.js
-npm-debug.log
