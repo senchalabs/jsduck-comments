@@ -53,7 +53,7 @@ course is the docs app that JSDuck generates.  But we need to tell
 JSDuck the address of the server and the "domain" of comments.
 
 When you're running on your local machine, the URL will be
-`http://localhost:3000/auth` (unless you have changed the default port
+`http://localhost:5000/auth` (unless you have changed the default port
 in config.js file).
 
 The domain is a simple string of `<name>/<version>` - it allows a
@@ -76,6 +76,12 @@ To run on Heroku, you have two options:
 
 App knows to pick up params from Heroku ENV settings first and then from config.js if heroku env not available. If you have heroku toolset installed, you can run this locally via foreman start as well.
 
+When running on Heroku, you will not be able to use a simple SMTP localhost:25 setup to send out emails from the comments app since Heroku will not run a smtp on its dynos. To be able to send out emails when hosted at Heroku, you have the following options:
+1. Use Gmail with Auth - This nodejs app uses nodemailer which supports sending out smtp autheticated email via Gmail (or any other provider/open relay).
+2. Use Amazon SES - If you have access to an Amazon SES/EC2 account, setup SES by verifying your domain with SES and using your AWS SES keys in config.js.
+
+See [NodeMailer Examples ][https://github.com/andris9/Nodemailer/blob/master/examples/] for details.
+See [AWS SES Developer Guide][http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html] for details on domain verification.
 Development
 -----------
 
