@@ -1,4 +1,4 @@
 node_modules
-errors.log
+*.log
 config.js
 npm-debug.log
