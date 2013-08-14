@@ -44,7 +44,7 @@ Run the `app.js` script to start the server:
 Preferably though, use [forever][] (or something similar) to run it,
 so in case it happens to crash it'll be restarted automatically:
 
-    $ forever -e errors.log --watch app.js
+    $ forever -l forever.log -e errors.log --watch app.js
 
 [forever]: https://github.com/nodejitsu/forever
 
