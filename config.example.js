@@ -43,11 +43,16 @@ module.exports = {
 
     email: {
         domain: "docs.sencha.com",
-        // Config for nodemailer
-        // See https://github.com/andris9/Nodemailer
+        // Config for nodemailer. Defaults to SMTP transport. 
+        // If using SES, then add in config.AWSSecretKey and config.AWSAccessKeyID
+        // See https://github.com/andris9/Nodemailer and http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html
+        // mode: "SES", => Uncomment to use Amazon SES. 
         config: {
             host: 'localhost',
-            port: 25
+            port: 25,
+            //AWSAccessKeyID: "YOUR_AWS_ACCESS_KEY_ID", //=> If mode==SES, then set this.
+            //AWSSecretKey: "YOUR_AWS_ACCESS_KEY_SECRET", //=> If mode==SES then set this.
+            //ServiceUrl: "https://email.us-east-1.amazonaws.com", //=> If mode=SES then set this.
         }
         // An address where to send all e-mails about new comments.
         // mailinglists: "comments@example.com"
