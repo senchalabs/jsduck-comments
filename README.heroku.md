@@ -11,9 +11,9 @@ First of all, you need to have a Heroku account setup, your SSH keys pushed to i
 
 3. Clone the master branch and install node dependencies. Setup the mysql database (Your database must be accessible to Heroku!)
     
-    $ git clone git@github.com:senchalabs/jsduck-comments.git
-    $ cd jsduck-comments && npm install
-    $ mysql -u<dbuser> -p<dbpass> -h<dbhost> dbname < sql/schema.sql
+     $ git clone git@github.com:senchalabs/jsduck-comments.git
+     $ cd jsduck-comments && npm install
+     $ mysql -u<dbuser> -p<dbpass> -h<dbhost> dbname < sql/schema.sql
 
 4. To be able to send out emails from Heroku, you will need either an SMTP relay available or use SES. App sends out email using nodemailer so its trivial to add-in support for using Gmail as well. I will assume you are going to use SES.
 
@@ -55,7 +55,7 @@ First of all, you need to have a Heroku account setup, your SSH keys pushed to i
 16. If you would like the app addressable by a custom name (say comments.domain.com), then run the following and setup comments.domain.com as a CNAME to the app url from the `heroku info` cmd.
 
     $ heroku domains:add comments.domain.com 
-    $ heroku info | perl -ne 'print $1 if /http:\/\/(.\*)\/$/;'
+    $ heroku info | perl -ne 'print $1 if /http:\/\/(.*)\/$/;'
 
 17. If you are using Heroku in the free tier, your app has only one web worker (which could be put to sleep after some inactivity). Bump up to two web processes if needed(costs ~$30 per month) -
 
