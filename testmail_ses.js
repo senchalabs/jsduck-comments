@@ -26,5 +26,3 @@ if (mailconfig.mode === "SES") {
 else {
   console.log("Nothing to do - email.mode is not SES");
 }
-
-
