@@ -10,7 +10,7 @@ First of all, you need to have a Heroku account setup, your SSH keys pushed to i
 2. Depending on your OS, make sure you have nodejs and npm etc installed. 
 
 3. Clone the master branch and install node dependencies. Setup the mysql database (Your database must be accessible to Heroku!)
-
+    
     $ git clone git@github.com:senchalabs/jsduck-comments.git
     $ cd jsduck-comments && npm install
     $ mysql -u<dbuser> -p<dbpass> -h<dbhost> dbname < sql/schema.sql
