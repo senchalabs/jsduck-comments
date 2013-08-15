@@ -1,7 +1,7 @@
 JSDuck Comments Server
 ======================
 
-NodeJS server for [JSDuck][] comments system on top of MySQL database.
+NodeJS server for [JSDuck](https://github.com/senchalabs/jsduck) comments system on top of MySQL database.
 
 **NOTE:** The authentication system is currently targeted to work with
 [Sencha Forum][] users database.  If you're not from Sencha, then this
@@ -10,8 +10,8 @@ alternative implementation which uses a local users table, but as of
 now the implementation doesn't cover registration, only the
 authentication part.
 
-[JSDuck]: https://github.com/senchalabs/jsduck
-[Sencha Forum]: http://www.sencha.com/forum/
+[JSDuck](https://github.com/senchalabs/jsduck)
+[Sencha Forum](http://www.sencha.com/forum/)
 
 
 Install
@@ -71,15 +71,17 @@ username and password.
 Run on Heroku
 -------------
 To run on Heroku, you have two options:
+
 1. Use a config.js (which is normally gitignored; you will need to remove it from .gitignore) and push it to Heroku.
-2. Or build a config.js (locally ignored by git), flatten it using 'node flattenconfig.js ./config.js | sh'  to set the params at Heroku. (Preferred)
+2. Or build a config.js (locally ignored by git), flatten it using `node flattenconfig.js ./config.js | sh`  to set the params at Heroku. (Preferred)
 
 
 When running on Heroku, you will not be able to use a simple SMTP localhost:25 setup to send out emails from the comments app since Heroku will not run a smtp on its dynos. To be able to send out emails when hosted at Heroku, you have the following options:
+
 1. Use SMTP with Auth with a server you "own" - This nodejs app uses nodemailer which supports sending out smtp autheticated email via Gmail (or any other provider/open relay).
 2. Use Amazon SES - If you have access to an Amazon SES/EC2 account, setup SES by verifying your domain with SES and using your AWS SES keys in config.js.
 
-See [README.heroku.md][README.heroku.md] for details.
+See [README.heroku.md](README.heroku.md) for details.
 
 Development
 -----------
