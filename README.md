@@ -71,17 +71,16 @@ username and password.
 Run on Heroku
 -------------
 To run on Heroku, you have two options:
-1. Use a config.js (which is normally gitignored; you will need to include it and push to heroku)
-2. Or build a config.js (locally ignored by git), flatten it using 'node flattenconfig.js ./config.js | sh 'to set the params at Heroku.
+1. Use a config.js (which is normally gitignored; you will need to remove it from .gitignore) and push it to Heroku.
+2. Or build a config.js (locally ignored by git), flatten it using 'node flattenconfig.js ./config.js | sh'  to set the params at Heroku. (Preferred)
 
-App knows to pick up params from Heroku ENV settings first and then from config.js if heroku env not available. If you have heroku toolset installed, you can run this locally via foreman start as well.
 
 When running on Heroku, you will not be able to use a simple SMTP localhost:25 setup to send out emails from the comments app since Heroku will not run a smtp on its dynos. To be able to send out emails when hosted at Heroku, you have the following options:
-1. Use Gmail with Auth - This nodejs app uses nodemailer which supports sending out smtp autheticated email via Gmail (or any other provider/open relay).
+1. Use SMTP with Auth with a server you "own" - This nodejs app uses nodemailer which supports sending out smtp autheticated email via Gmail (or any other provider/open relay).
 2. Use Amazon SES - If you have access to an Amazon SES/EC2 account, setup SES by verifying your domain with SES and using your AWS SES keys in config.js.
 
-See [NodeMailer Examples ][https://github.com/andris9/Nodemailer/blob/master/examples/] for details.
-See [AWS SES Developer Guide][http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html] for details on domain verification.
+See [README.heroku.md][README.heroku.md] for details.
+
 Development
 -----------
 
